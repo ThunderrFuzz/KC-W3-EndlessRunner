@@ -9,6 +9,7 @@ public class PlayerStats : MonoBehaviour
     public int maxHealth;
     [SerializeField]
     int clearedObstacle;
+    float boostTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,13 +21,25 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Loop through each spawned obstacle 
+        if (spawnManager.mov.playerAnim.GetFloat("Speed_f") == 1 && !spawnManager.mov.gameOver)
+        {
+            boostTime += Mathf.RoundToInt(Time.time);
+        }
      
     }
-    public void doDam(int damage)
-    {
-        health -= damage;
-    }
-    public int getHealth() { return health; }  
+    
+
+    
+
+    //increment cleared obstacles
     public void clearObs() { clearedObstacle += 1; }
+    //getters and setters 
+    public int getHealth() { return health; }
+    public int getClearedObstacle() {  return clearedObstacle; }
+
+    public float getBoostTime()
+    {
+        return boostTime;
+    }
+
 }

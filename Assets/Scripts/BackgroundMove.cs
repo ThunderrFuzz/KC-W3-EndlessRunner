@@ -8,29 +8,33 @@ public class BackgroundMover : MonoBehaviour
     public GameObject transitionImagePrefab;
     public GameObject[] backgroundPrefabs;
     private GameObject currentBackground;
-    
+    Movement mov;
     private SpriteRenderer currentBackgroundRenderer;
     private SpriteRenderer newBackgroundRenderer;
     private Vector3 startPosition;
     public Vector3 initialSpawnPosition;
     private int lastIndex;
     bool lastWasTransition = false;
+    float initialScrollSpeed;
     void Start()
     {
+        mov = FindObjectOfType<Movement>();
         startPosition = transform.position;
         // Select a random background at the start
         SpawnBackground();
-
+        initialScrollSpeed = 5;
     }
 
     void Update()
     {   
-        if (currentBackground != null)
+        if (!mov.gameOver)
         {
+            float speedMultiplier = Input.GetKey(KeyCode.LeftShift) ? 1.2f : 1.0f;
+            float adjustedSpeed = initialScrollSpeed * speedMultiplier;
             // Move the background
-            currentBackground.transform.Translate(Vector3.left * scrollSpeed * Time.deltaTime);
+            currentBackground.transform.Translate(Vector3.left * adjustedSpeed * Time.deltaTime);
             // Check if the background is out of view
-            if (currentBackground.transform.position.x <= startPosition.x - currentBackgroundRenderer.bounds.size.x /1.5f )
+            if (currentBackground.transform.position.x <= startPosition.x - currentBackgroundRenderer.bounds.size.x /2f )
             {
                 Destroy(currentBackground);
                 SpawnBackground(); 

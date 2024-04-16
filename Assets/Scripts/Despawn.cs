@@ -13,10 +13,8 @@ public class Despawn : MonoBehaviour
     }
     void OnTriggerEnter(Collider col)
     {
-
         if (col.tag == "Obstacle")
         {
-            Debug.Log("destroyed " + gameObject.name);
             Destroy(col.gameObject);
             sm_.spawnCount--;
             player.clearObs();
