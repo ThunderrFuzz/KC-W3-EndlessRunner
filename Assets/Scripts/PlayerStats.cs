@@ -7,7 +7,6 @@ public class PlayerStats : MonoBehaviour
     int health;
     SpawnManager spawnManager;
     public int maxHealth;
-    [SerializeField]
     int clearedObstacle;
     float boostTime;
     // Start is called before the first frame update
@@ -25,6 +24,10 @@ public class PlayerStats : MonoBehaviour
         {
             boostTime += Mathf.RoundToInt(Time.time);
         }
+        else if (spawnManager.mov.gameOver)
+        {
+            boostTime = 0f;
+        }
      
     }
     
@@ -40,6 +43,10 @@ public class PlayerStats : MonoBehaviour
     public float getBoostTime()
     {
         return boostTime;
+    }
+    public void resetBoostTime()
+    {
+        boostTime = 0;
     }
 
 }

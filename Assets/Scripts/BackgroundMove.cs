@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class BackgroundMover : MonoBehaviour
 {
+    [Header("Background settings")]
     public float scrollSpeed = 1f;
+    public Vector3 initialSpawnPosition;
     public GameObject transitionImagePrefab;
     public GameObject[] backgroundPrefabs;
-    private GameObject currentBackground;
+    
+
+    //private vars
+    GameObject currentBackground;
     Movement mov;
-    private SpriteRenderer currentBackgroundRenderer;
-    private SpriteRenderer newBackgroundRenderer;
-    private Vector3 startPosition;
-    public Vector3 initialSpawnPosition;
-    private int lastIndex;
+    SpriteRenderer currentBackgroundRenderer;
+    SpriteRenderer newBackgroundRenderer;
+    Vector3 startPosition;
+    int lastIndex;
     bool lastWasTransition = false;
     float initialScrollSpeed;
     void Start()
@@ -67,6 +71,7 @@ public class BackgroundMover : MonoBehaviour
 
             lastWasTransition = false;
         }
+        //sets last index to use for checking if a transiton is needed.
         lastIndex = randIndex;
         // gets the renderer from the spawned background
         currentBackgroundRenderer = currentBackground.GetComponent<SpriteRenderer>();
@@ -78,7 +83,7 @@ public class BackgroundMover : MonoBehaviour
         for (float t = 0f; t < duration; t += Time.deltaTime)
         {
             float normalizedTime = t / duration;
-            //right here, you can now use normalizedTime as the third parameter in any Lerp from start to end
+            //use normalizedTime as the third parameter in any Lerp from start to end
             
             currentBackgroundRenderer.color = Color.Lerp(start, end, normalizedTime);
             yield return null;

@@ -9,15 +9,21 @@ public class Despawn : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //finds player stats script
         player = FindObjectOfType<PlayerStats>();
     }
     void OnTriggerEnter(Collider col)
     {
+
         if (col.tag == "Obstacle")
         {
+            //destroy the object
             Destroy(col.gameObject);
+            //decrease obstacle spawn count
             sm_.spawnCount--;
+            //adds a cleared obstacle for scoring
             player.clearObs();
+            //removes object from spawned object list
             sm_.spawnedObstacles.Remove(col.gameObject);
         }
 

@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class TextDisplay : MonoBehaviour
 {
-
+    [Header("TMP text Elements")]
     public TMP_Text clearedObstacles;
     public TMP_Text time;
     public TMP_Text score;
-
+    
+    //private vars
     float timeSurvived;
     PlayerStats stats;
     Movement mov;
+
+
     // Start is called before the first frame update
 
     private void Start()
@@ -30,12 +33,17 @@ public class TextDisplay : MonoBehaviour
             // increase time elapsed 
             time.text = "Time Survived: " + Mathf.Floor(Time.time);
 
-            timeSurvived += Time.time;
+            timeSurvived += Time.deltaTime;
         }
         else 
         {
             //only update score at the end of the game, as boosttime will increase until the end of the game 
             score.text = "Total Score: " + Mathf.Floor((float)stats.getClearedObstacle() + (timeSurvived - stats.getBoostTime() / 10000));
+            timeSurvived = 0;
         }
     }
+
+
+
+   
 }
